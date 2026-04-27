@@ -1,54 +1,58 @@
-# README Template
+# Fashion Forward Forecasting — StyleSense Pipeline Project
 
-Below is a template provided for use when building your README file for students.
-
-# Project Title
-
-Project description goes here.
+Predict whether a customer recommends a product based on their review text, age, product category, and other features. Built as part of the Udacity Data Scientist Nanodegree.
 
 ## Getting Started
 
-Instructions for how to get a copy of the project running on your local machine.
+The main notebook is in `starter/starter.ipynb`. The dataset is in `starter/data/reviews.csv`.
 
 ### Dependencies
 
 ```
-Examples here
+scikit-learn
+numpy
+pandas
+spacy
 ```
 
 ### Installation
 
-Step by step explanation of how to get a dev environment running.
-
-List out the steps
+1. Install the required packages:
 
 ```
-Give an example here
+pip install -r requirements.txt
 ```
 
-## Testing
-
-Explain the steps needed to run any automated tests
-
-### Break Down Tests
-
-Explain what each test does and why
+2. Download the spaCy English model:
 
 ```
-Examples here
+python -m spacy download en_core_web_sm
 ```
 
-## Project Instructions
+3. Open the notebook:
 
-This section should contain all the student deliverables for this project.
+```
+jupyter notebook starter/starter.ipynb
+```
+
+## Project Overview
+
+The dataset contains 18,442 anonymized women's clothing reviews with 8 features (numerical, categorical, and text) and a binary target (`Recommended IND`).
+
+The pipeline uses `ColumnTransformer` to handle all data types:
+
+- **Numerical** (Age, Positive Feedback Count, Clothing ID): median imputation + standard scaling
+- **Categorical** (Division Name, Department Name, Class Name): mode imputation + one-hot encoding
+- **Text** (Review Text, Title): spaCy lemmatization and stop word removal + TF-IDF vectorization
+
+The classifier is Logistic Regression, tuned with GridSearchCV (3-fold CV, optimized for F1 score).
 
 ## Built With
 
-* [Item1](www.item1.com) - Description of item
-* [Item2](www.item2.com) - Description of item
-* [Item3](www.item3.com) - Description of item
-
-Include all items used to build project.
+- [scikit-learn](https://scikit-learn.org/) - ML pipeline and model training
+- [spaCy](https://spacy.io/) - NLP text preprocessing (tokenization, lemmatization)
+- [pandas](https://pandas.pydata.org/) - Data loading and manipulation
+- [NumPy](https://numpy.org/) - Numerical operations
 
 ## License
 
